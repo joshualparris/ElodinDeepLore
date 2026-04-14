@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElodinDeepLore — Master Namer of the University</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0b0f;
+    --surface: #111218;
+    --surface2: #171922;
+    --border: #2a2e3e;
+    --accent: #c8a96e;
+    --accent2: #7eb8c9;
+    --accent3: #9b7fc4;
+    --text: #e8e0d0;
+    --text-muted: #8a8070;
+    --text-dim: #5a5448;
+    --red: #c45a5a;
+    --green: #6ba88a;
+    --glow: rgba(200, 169, 110, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Starfield BG */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(200,169,110,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 70%, rgba(126,184,201,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 20%, rgba(200,169,110,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.1) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 50%, rgba(126,184,201,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 90%, rgba(200,169,110,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.15) 0%, transparent 100%),
+      radial-gradient(2px 2px at 70% 40%, rgba(200,169,110,0.2) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wind-lines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.03;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 80px,
+      rgba(200,169,110,0.5) 80px,
+      rgba(200,169,110,0.5) 82px
+    );
+    animation: windDrift 30s linear infinite;
+  }
+
+  @keyframes windDrift {
+    0% { background-position: 0 0; }
+    100% { background-position: 1000px 0; }
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 60px 40px 40px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(to bottom, rgba(10,11,15,0) 0%, rgba(17,18,24,0.9) 100%);
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+  }
+
+  .project-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    color: var(--accent);
+    text-shadow: 0 0 40px rgba(200,169,110,0.4), 0 0 80px rgba(200,169,110,0.1);
+    letter-spacing: 2px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  .runic-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  .runic-divider::before,
+  .runic-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border));
+  }
+
+  .runic-divider::after {
+    background: linear-gradient(to left, transparent, var(--border));
+  }
+
+  .runic-glyph {
+    color: var(--accent);
+    font-size: 18px;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,11,15,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+    overflow-x: auto;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 0;
+    white-space: nowrap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 14px 16px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* MAIN */
+  main {
+    position: relative;
+    z-index: 5;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .section-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--surface2), var(--surface));
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    margin-top: 32px;
+  }
+
+  h3:first-child { margin-top: 0; }
+
+  p {
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  /* STAT BLOCK */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: var(--accent); }
+
+  .stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .stat-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .stat-value.accent { color: var(--accent); }
+  .stat-value.accent2 { color: var(--accent2); }
+  .stat-value.accent3 { color: var(--accent3); }
+
+  /* QUOTE BLOCKS */
+  blockquote {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px 16px 24px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--text-muted);
+    position: relative;
+  }
+
+  blockquote .source {
+    display: block;
+    font-style: normal;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--border));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(42,46,62,0.5);
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(200,169,110,0.6);
+  }
+
+  .timeline-era {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .timeline-event {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .timeline-desc {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* THEORY CARDS */
+  .theory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  .theory-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .theory-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(200,169,110,0.03));
+    pointer-events: none;
+  }
+
+  .theory-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .theory-tier {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .tier-canon { background: rgba(107,168,138,0.2); color: var(--green); border: 1px solid rgba(107,168,138,0.3); }
+  .tier-strong { background: rgba(200,169,110,0.15); color: var(--accent); border: 1px solid rgba(200,169,110,0.25); }
+  .tier-speculative { background: rgba(155,127,196,0.15); color: var(--accent3); border: 1px solid rgba(155,127,196,0.25); }
+  .tier-fringe { background: rgba(196,90,90,0.1); color: var(--red); border: 1px solid rgba(196,90,90,0.2); }
+
+  .theory-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .theory-body {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .theory-evidence {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .evidence-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .evidence-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .evidence-list li {
+    font-size: 13px;
+    color: var(--text-dim);
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 3px;
+  }
+
+  .evidence-list li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    font-size: 7px;
+    top: 4px;
+    color: var(--accent);
+  }
+
+  /* KNOWN NAMES TABLE */
+  .names-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+  }
+
+  .names-table th {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .names-table td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(42,46,62,0.4);
+    color: var(--text-muted);
+  }
+
+  .names-table tr:last-child td { border-bottom: none; }
+
+  .names-table tr:hover td { background: var(--surface); }
+
+  .name-word {
+    font-style: italic;
+    color: var(--accent);
+    font-size: 15px;
+  }
+
+  /* DEEP RESEARCH PROMPT */
+  .prompt-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .prompt-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent3), var(--accent), var(--accent2));
+  }
+
+  .prompt-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+
+  .prompt-text strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .copy-btn {
+    background: linear-gradient(135deg, rgba(200,169,110,0.15), rgba(200,169,110,0.05));
+    border: 1px solid rgba(200,169,110,0.3);
+    color: var(--accent);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover {
+    background: linear-gradient(135deg, rgba(200,169,110,0.25), rgba(200,169,110,0.1));
+    border-color: var(--accent);
+  }
+
+  /* COLUMNS */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  @media (max-width: 700px) {
+    .two-col { grid-template-columns: 1fr; }
+    .theory-grid { grid-template-columns: 1fr; }
+  }
+
+  /* PILL TAGS */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .tag {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.5px;
+  }
+
+  .tag.gold { border-color: rgba(200,169,110,0.4); color: var(--accent); }
+  .tag.blue { border-color: rgba(126,184,201,0.4); color: var(--accent2); }
+  .tag.purple { border-color: rgba(155,127,196,0.4); color: var(--accent3); }
+
+  /* INFO PANEL */
+  .info-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(42,46,62,0.4);
+    font-size: 14px;
+  }
+
+  .info-row:last-child { border-bottom: none; }
+
+  .info-key {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    width: 150px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .info-val { color: var(--text-muted); flex: 1; }
+  .info-val.important { color: var(--text); font-weight: 600; }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 200;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .scroll-top:hover {
+    background: rgba(200,169,110,0.1);
+    border-color: var(--accent);
+  }
+
+  /* ANIMATION */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section { animation: fadeInUp 0.6s ease both; }
+
+  .highlight {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .warning-box {
+    background: rgba(155,127,196,0.08);
+    border: 1px solid rgba(155,127,196,0.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: var(--accent3);
+  }
+
+  .warning-box strong { color: var(--accent3); }
+
+  .canon-box {
+    background: rgba(107,168,138,0.08);
+    border: 1px solid rgba(107,168,138,0.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: var(--green);
+  }
+
+  em { color: var(--accent); font-style: italic; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  footer {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid var(--border);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+<div class="wind-lines"></div>
+
+<header>
+  <p class="project-tag">RothfussGame Project · ElodinDeepLore Module</p>
+  <h1>Elodin</h1>
+  <p class="subtitle">Master Namer · Chancellor Emeritus · The Great · Known of All Names</p>
+  <div class="runic-divider"><span class="runic-glyph">✦</span></div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#identity">Identity</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#canon-notw">NotW Canon</a></li>
+    <li><a href="#canon-wmf">WMF Canon</a></li>
+    <li><a href="#abilities">Abilities</a></li>
+    <li><a href="#relationships">Relationships</a></li>
+    <li><a href="#theories">Theories</a></li>
+    <li><a href="#conjecture">Conjecture</a></li>
+    <li><a href="#research-prompt">Deep Research</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- IDENTITY -->
+<section id="identity">
+  <div class="section-header">
+    <div class="section-icon">🜂</div>
+    <h2>Identity & Core Profile</h2>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-label">Full Name</div>
+      <div class="stat-value accent">Elodin</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pronunciation</div>
+      <div class="stat-value">/ˈɛlədɪn/</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Title(s)</div>
+      <div class="stat-value">Master Namer, Re'lar Sponsor</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Former Title</div>
+      <div class="stat-value accent3">Chancellor of the University</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Admitted to University</div>
+      <div class="stat-value accent2">Age 14 (youngest ever)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Full Arcanist</div>
+      <div class="stat-value">Age 18 (youngest ever)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Age vs Other Masters</div>
+      <div class="stat-value">Dozen+ years younger</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Physical Build</div>
+      <div class="stat-value">Medium height, medium build</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Distinguishing Feature</div>
+      <div class="stat-value accent">Deep, dark eyes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Iconic Habit</div>
+      <div class="stat-value">Always barefoot</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Known Languages</div>
+      <div class="stat-value">Aturan, Siaru, likely Ademic</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Source Books</div>
+      <div class="stat-value">NotW, WMF, TSRST (mentioned)</div>
+    </div>
+  </div>
+
+  <p>Elodin is the most enigmatic figure in the University hierarchy — simultaneously the most powerful academic present and the most deliberately opaque. He is the only living person confirmed to have commanded multiple Names with fluency, and the only one known to have escaped Haven (the University's asylum) from the inside. Clean-shaven, unremarkable in appearance at first glance, Elodin's primary physical distinction is the quality of his gaze: described by Kvothe as something that could be <em>felt</em> — not metaphorically, but as a genuine sensation. When Elodin truly looked at you, you felt it.</p>
+
+  <p>Rothfuss has confirmed in interviews that <em>"Elodin is a treat"</em> and counts among his personal favourite characters — describing him alongside Auri as someone who resonates because of the layers beneath the surface performance.</p>
+
+  <div class="tag-list">
+    <span class="tag gold">Master Namer</span>
+    <span class="tag gold">Former Chancellor</span>
+    <span class="tag blue">Fae-Knowledgeable</span>
+    <span class="tag blue">Ademic Speaker</span>
+    <span class="tag purple">Possibly Taborlin</span>
+    <span class="tag">Barefoot Sage</span>
+    <span class="tag">Haven Escapee</span>
+    <span class="tag">Auri's Guardian</span>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-header">
+    <div class="section-icon">⧗</div>
+    <h2>Reconstructed Life Timeline</h2>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-era">Early Life — Unknown</div>
+      <div class="timeline-event">Birth & Origins</div>
+      <p class="timeline-desc">No canon information exists about Elodin's family, birthplace, or background prior to the University. His young admission age suggests exceptional early development. Some theorists speculate Fae heritage or time spent in the Fae realm prior to University enrollment to explain his apparent youth relative to his implied knowledge.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-era">~5–8 Years Before Present Story</div>
+      <div class="timeline-event">Admitted to University — Age 14</div>
+      <p class="timeline-desc">The youngest student ever admitted. Already showing extraordinary aptitude. Within 4 years (age 18) he achieves Full Arcanist — again, the youngest ever. He then stays on as a Giller (an arcanist who teaches and works at the University).</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-era">Post-Arcanist</div>
+      <div class="timeline-event">Becomes Master Namer, then Chancellor</div>
+      <p class="timeline-desc">His rise is extraordinary — from student to the University's highest administrative position within a short span. As Chancellor he would have governed the entire institution. He was the youngest Chancellor in the University's history.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-era">~5 Years Before NotW Events</div>
+      <div class="timeline-event">The Incident — Committed to Haven</div>
+      <p class="timeline-desc">Something catastrophic happens. The masters never speak of it directly. Elodin is committed to Haven — the University's asylum for mentally broken arcanists. He is placed in a specially constructed copper-windowed, copper-doored room designed to contain him. The room suppresses naming — even the name of the wind cannot be heard inside it. He spends approximately two years confined there.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-era">~3 Years Before NotW Events</div>
+      <div class="timeline-event">Escape from Haven</div>
+      <p class="timeline-desc">Elodin escapes by calling the True Name of stone — <em>Cyaerbasalien</em> — causing the wall to dissolve into fine grey sand. The room had copper mesh in the walls specifically to counteract this. He circumvents it. He cannot be properly contained. He departs, and later returns to the University not as Chancellor, but as Master Namer — a position he apparently requested or was assigned to contain his eccentricities within an academic framework.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-era">Present (NotW / WMF)</div>
+      <div class="timeline-event">Master Namer — Teaching (Loosely)</div>
+      <p class="timeline-desc">Elodin takes on students sporadically, famously refuses to teach anything directly, and wanders the University barefoot. He is known to have been observing Auri in the Underthing for years without being able to approach her. He makes Fela his most notable naming success, helping her call the name of stone.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-era">Late WMF</div>
+      <div class="timeline-event">Falls Ill — Hemme Becomes Acting Chancellor</div>
+      <p class="timeline-desc">Near the end of The Wise Man's Fear, Elodin falls ill and becomes unable to fulfill his duties, allowing Master Hemme to step into the Chancellor's role. The nature of this illness is unspecified — and deeply suspicious given the timing.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-era">Doors of Stone — Unknown</div>
+      <div class="timeline-event">Future Role Entirely Speculation</div>
+      <p class="timeline-desc">Rothfuss has reportedly stated in convention panels that Elodin features prominently in Book 3. Whether he survives, what role he plays in the war, and whether the Taborlin theory is resolved remains unknown.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CANON: NOTW -->
+<section id="canon-notw">
+  <div class="section-header">
+    <div class="section-icon">📖</div>
+    <h2>Canon: The Name of the Wind</h2>
+  </div>
+
+  <h3>First Encounter — Admissions Interview</h3>
+  <p>Kvothe's first sight of Elodin is at the admissions table. He is conspicuously younger than the other masters. He asks Kvothe how well he speaks Siaru, then holds up hidden fingers beneath the table and asks how many. When Kvothe answers <em>"at least one, probably no more than six"</em> — a logic trap — Elodin reveals two fingers he had concealed and nods with childlike delight. He then asks if Kvothe knows <em>"the seven words that will make a woman love you"</em> — and when Kvothe says no, Elodin says simply: <em>"They exist."</em></p>
+
+  <blockquote>
+    "Soheketh ka Siaru krema'teth tu?" — How well do you speak Siaru? <span class="source">Elodin's first words to Kvothe — NotW Ch. 8</span>
+  </blockquote>
+
+  <h3>The Crockery Visit — Elodin's Greatest Scene</h3>
+  <p>After Kvothe seeks out Elodin as a potential naming teacher, Elodin leads him on an odyssey through the University that ends at Haven. He introduces Kvothe to Alder Whin (another broken namer), shows him the horror of arcanist madness, then takes him to his own former cell — a room of copper frame and copper-threaded windows, with unnaturally still air. He smashes a chair into the window to demonstrate its impossible resistance. Then, after Kvothe asks the right questions, Elodin calls <em>Cyaerbasalien</em> — the Name of stone — and dissolves the wall into sand.</p>
+
+  <blockquote>
+    "Two years. Able to see this balcony but not stand on it. Able to see the wind, but not hear it, not feel it on my face."
+    <span class="source">Elodin on Haven — NotW Ch. 46</span>
+  </blockquote>
+
+  <p>He then leads Kvothe to the roof, and tells him to jump — testing whether he has the reckless faith of a true namer. Kvothe jumps. Elodin does not catch him. Kvothe breaks three ribs, a shoulder, and gets a concussion. Elodin responds: <em>"Congratulations. That was the stupidest thing I've ever seen. Ever."</em> He refuses to teach Kvothe.</p>
+
+  <h3>The Storm in Kilvin's Shop — Aerlevsedi</h3>
+  <p>After Ambrose destroys Kvothe's lute and Kvothe calls the Name of the Wind in rage, his sleeping mind is fully roused and he is left in a dissociative, storming mental state. Elodin finds him, makes him speak <em>Aerlevsedi</em> (the Name of Wind), and then whispers Kvothe's own Name into his ear — stilling the storm. This is one of the most powerful demonstrations of naming in the books: Elodin perceives Kvothe's internal state and knows precisely what Name to speak to restore order. He is gone before Kvothe recovers.</p>
+
+  <blockquote>
+    "He leaned forward and his lips brushed my ear... He spoke... and the storm stilled. I found a place to land."
+    <span class="source">NotW Ch. 84 — Kvothe on Elodin's intervention</span>
+  </blockquote>
+
+  <h3>The Trial — Sponsoring Kvothe to Re'lar</h3>
+  <p>When all nine masters vote to expel Kvothe after the lute incident, Elodin alone opposes the expulsion. He then immediately moves to promote Kvothe to Re'lar — <em>"I move that Kvothe be raised to the rank of Re'lar."</em> Outside afterwards, he explains the original meaning of the Arcanum's ranks: E'lir (see-er), Re'lar (speaker), El'the (one who understands). He teaches Kvothe that words are <em>"pale shadows of forgotten names"</em> and names are <em>"the fire itself."</em> He shouts "BLUE! BLUE! BLUE!" at the sky in a moment of unhinged joy.</p>
+
+  <h3>The House of the Wind</h3>
+  <p>Elodin finds Kvothe sitting on the roof of Mains, bloody and half-dissociated, watching the wind move through the Quoyan Hayel. He sits beside him and casually explains that <em>Quoyan</em> doesn't mean "questioning" — it means <em>wind</em>. The courtyard is rightly called the House of the Wind. He watches the wind alongside Kvothe with genuine reverence.</p>
+
+  <h3>Kilvin's Testimony on Elodin's Power</h3>
+  <p>When discussing the bone-tar fire, Kilvin says: <em>"If Elodin had been here, matters would have been much simpler."</em> When Kvothe asks whether Elodin knows the Name of fire, Kilvin confirms it — <em>"There may be one or two others here at the University, but Elodin has the surest grip of it."</em> This is the only external confirmation of Elodin's multi-name mastery.</p>
+</section>
+
+<!-- CANON: WMF -->
+<section id="canon-wmf">
+  <div class="section-header">
+    <div class="section-icon">📚</div>
+    <h2>Canon: The Wise Man's Fear</h2>
+  </div>
+
+  <h3>The Naming Class</h3>
+  <p>Elodin begins an official Naming class — apparently rare or unprecedented. His teaching methods are studied in their chaos: he chases milkweed seeds around the room clapping at them, makes students stare at things, sends them to sit in uncomfortable places, asks impossible questions. He writes a reading list and when asked which books to prioritize, says: <em>"How should I know? I haven't read these."</em> His point — that the answers cannot be found in books — is communicated through the comedy of the lesson.</p>
+
+  <h3>The Auri Encounter — The Pivotal Moment</h3>
+  <p>Elodin joins Kvothe and Auri on the roof, surprising both. He has known of Auri for years but was never able to approach her. When he discovers that Kvothe gave Auri her name — and more, that Kvothe doesn't know what language the name comes from — Elodin is visibly shaken. His expression changes completely. It is this encounter, not Kvothe's cleverness or tenacity, that causes Elodin to accept Kvothe into his class. The implication: Kvothe's sleeping mind named Auri something true and deep without conscious effort, demonstrating instinctive naming ability of the highest order.</p>
+
+  <blockquote>
+    "Why Auri?" — Elodin, after the dinner. Kvothe replies it means "sunny." Elodin asks, in what language. Kvothe doesn't know.
+    <span class="source">WMF Ch. 11</span>
+  </blockquote>
+
+  <h3>Fela's Ring of Stone</h3>
+  <p>The naming class's greatest success: Fela calls the Name of Stone, and fashions herself a ring of stone — a traditional sign that an arcanist has earned mastery of a Name. Elodin witnesses this with quiet satisfaction. The ring becomes symbolically important for Fela and Simmon's relationship.</p>
+
+  <h3>Ademic Fluency</h3>
+  <p>When Kvothe returns from Ademre and mentions his training there, Elodin uses the Adem hand gesture for <em>amazed respect</em> — a precise cultural gesture most Aturans would not know. This strongly implies Elodin has traveled to Ademre and studied among the Adem, possibly learning naming techniques or cultural knowledge from their entirely different tradition of martial and philosophical training.</p>
+
+  <h3>Recognition of the Shaed</h3>
+  <p>When Kvothe returns from Fae with his shadow-cloak (the Shaed given by Felurian), Elodin recognizes it immediately: <em>"I recognize a Shaed when I see one."</em> This is extraordinary — a Shaed is Fae-crafted shadow-cloth, not something any ordinary scholar would have seen. It requires either direct experience of the Fae, extensive knowledge passed through deep esoteric tradition, or both.</p>
+
+  <h3>The Moon Question</h3>
+  <p>At some admissions interview in WMF, Elodin asks Kvothe where the moon goes when it is not in the sky. The answer — that the moon moves between Fae and the mortal realm, bound by Iax's bargain — is something Elodin already knows. He is testing whether Kvothe has learned it.</p>
+
+  <h3>The Stonebridge Moment — Names Can Be Changed</h3>
+  <p>On the Stonebridge, Kvothe asks Elodin whether someone could change their own Name. Elodin's reaction is immediate and visceral — he is horrified. This is significant: Elodin knows, in a way no one else quite does, what it means to have your Name changed or broken. His reaction suggests personal stakes. Some readers believe this foreshadows Kvothe eventually becoming Kote — not just in disguise, but in True Name.</p>
+
+  <h3>Encouraging Kvothe to Leave — "Chase the Wind"</h3>
+  <p>After Kvothe's trial in WMF, it is Elodin who encourages him to take a term off and explains the old tradition: naming students historically left the University to <em>chase the wind</em> — to experience the world's edges, where Names are more present and the sleeping mind more easily awakened. Elodin himself presumably did this at some point. This advice sends Kvothe toward Vintas, the Adem, and Felurian.</p>
+
+  <h3>The Bloodless Rename</h3>
+  <p>Elodin renames Kvothe's arrow-catching device "Bloodless" — a commercial masterstroke that makes it enormously popular and earns Kvothe significant royalties upon his return. A small moment, but it shows Elodin's understanding of how names shape perception and reality.</p>
+
+  <h3>Falls Ill — Hemme as Acting Chancellor</h3>
+  <p>Near the end of WMF, Elodin falls ill. Hemme — his bitter antagonist — assumes the Chancellor role. The timing and nature of this illness are unexplained and suspicious.</p>
+</section>
+
+<!-- ABILITIES -->
+<section id="abilities">
+  <div class="section-header">
+    <div class="section-icon">⚡</div>
+    <h2>Confirmed Abilities & Known Names</h2>
+  </div>
+
+  <h3>Confirmed True Names Known</h3>
+  <table class="names-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>What It Names</th>
+        <th>Confirmation</th>
+        <th>Demonstrated By</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="name-word">Aerlevsedi</span></td>
+        <td>The Wind</td>
+        <td>Canon — direct</td>
+        <td>Elodin speaks it to Kvothe; Kvothe later calls it himself</td>
+      </tr>
+      <tr>
+        <td><span class="name-word">Cyaerbasalien</span></td>
+        <td>Stone</td>
+        <td>Canon — direct</td>
+        <td>Dissolves the wall of Haven in NotW Ch. 46</td>
+      </tr>
+      <tr>
+        <td>Name of Fire</td>
+        <td>Fire</td>
+        <td>Canon — Kilvin's testimony</td>
+        <td>"Elodin has the surest grip of it" — Kilvin</td>
+      </tr>
+      <tr>
+        <td>Kvothe's Name</td>
+        <td>Kvothe's true self</td>
+        <td>Canon — implied</td>
+        <td>Whispered in Kvothe's ear to still the storm (NotW Ch. 84)</td>
+      </tr>
+      <tr>
+        <td>Auri's True Name</td>
+        <td>Auri's deepest self</td>
+        <td>Strongly implied</td>
+        <td>His reaction to hearing Kvothe's name for her suggests recognition</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Additional Implied Capabilities</h3>
+  <div class="info-panel">
+    <div class="info-row">
+      <span class="info-key">Sympathetic Magic</span>
+      <span class="info-val">Fully trained — confirmed arcanist. First called wind during rage at Elxa Dal's class when only an E'lir; braziers exploded.</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Waking/Sleeping Mind</span>
+      <span class="info-val important">Has mastered the integration of waking and sleeping minds — the fundamental prerequisite for true Naming. His own description of this process is the clearest explanation in the series.</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Perceiving Names</span>
+      <span class="info-val">Can perceive the true nature of complex, living things — demonstrated in his ability to name Kvothe's mental state and speak a Name to resolve it.</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Fae Knowledge</span>
+      <span class="info-val">Recognizes a Shaed on sight; knows the moon's true itinerary between worlds. Almost certainly has spent time in Fae.</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Linguistic Mastery</span>
+      <span class="info-val">Kilvin says he "makes a habit of studying" ancient and forgotten languages. Likely reads or speaks Yllish, Temic, possibly Old Aturan, and Ademic.</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Shaping</span>
+      <span class="info-val">Possibly. Rothfuss confirmed in interview that the difference between Naming and Shaping is "a very, very good question" readers will love in Book 3. Elodin seems to operate at or near this distinction.</span>
+    </div>
+  </div>
+
+  <h3>His Explanation of Naming (The Core Theory)</h3>
+  <blockquote>
+    "Words are pale shadows of forgotten names. As names have power, words have power. Words can light fires in the minds of men. Words can wring tears from the hardest hearts. There are seven words that will make a person love you. There are ten words that will break a strong man's will. But a word is nothing but a painting of a fire. A name is the fire itself."
+    <span class="source">Elodin to Kvothe — NotW Ch. 86</span>
+  </blockquote>
+
+  <blockquote>
+    "Each of us has two minds: a waking mind and a sleeping mind. Our waking mind is what thinks and talks and reasons. But the sleeping mind is more powerful. It sees deeply to the heart of things. It is the part of us that dreams. It remembers everything."
+    <span class="source">Elodin to Kvothe — NotW Ch. 86</span>
+  </blockquote>
+</section>
+
+<!-- RELATIONSHIPS -->
+<section id="relationships">
+  <div class="section-header">
+    <div class="section-icon">🜃</div>
+    <h2>Key Relationships</h2>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Kvothe</h3>
+      <p>Elodin's most complex relationship. He observes Kvothe from the very first admissions interview with what appears to be genuine interest — his question about Siaru and the hidden finger count suggest he is already probing Kvothe's thinking style. He refuses to teach Kvothe repeatedly (citing his recklessness) but consistently advocates for him at trials, promotes him to Re'lar, and eventually accepts him as a student. He sees something in Kvothe that no other master does: the genuine potential of a powerful, untrained sleeping mind.</p>
+      <p>Elodin's true relationship to Kvothe may be understood as a parallel: Elodin is what Kvothe might become — brilliant, damaged by too much knowing, retreated into apparent madness as a coping mechanism, yet still operating at the highest level of magical mastery.</p>
+    </div>
+
+    <div>
+      <h3>Auri</h3>
+      <p>Elodin has known about Auri for years, long before Kvothe meets her. He cannot approach her — she retreats from him. This is fascinating because Elodin, the most powerful namer present, is somehow wrong for Auri in a way that Kvothe is not. The most common theory: Elodin knows Auri's true Name, and that knowledge creates an imbalance or pressure that Auri's broken mind cannot tolerate. His reaction to hearing Kvothe's name for her — the word "Auri," source unknown — suggests he recognizes something profound and possibly dangerous in what Kvothe accidentally stumbled upon.</p>
+    </div>
+
+    <div>
+      <h3>Fela</h3>
+      <p>Elodin's greatest teaching success in the books. He reportedly did sculpting work with Fela (possibly as a form of naming-adjacent practice), and in exchange tried to teach her. She calls this arrangement mystifying and sometimes mortifying. But she succeeds — she calls the name of stone and fashions a ring. Elodin's investment in her is genuine in a way it rarely is with students.</p>
+    </div>
+
+    <div>
+      <h3>Hemme</h3>
+      <p>Open and intense mutual antipathy. Hemme (Master Rhetorician, political operator) is Elodin's ideological opposite — everything systematic, academic, and status-obsessed that Naming defies. Elodin grins openly at Kvothe's zingers during trials, takes obvious delight in needling Hemme, and their dynamic is one of the series' small comic pleasures. Hemme's assumption of the Chancellor role when Elodin falls ill is a deeply uncomfortable development.</p>
+    </div>
+
+    <div>
+      <h3>Elxa Dal</h3>
+      <p>The man who refused to teach Elodin advanced sympathetic bindings because he was "only an E'lir." This refusal was the emotional trigger that caused Elodin to first call the Name of the Wind (in a rage), igniting Dal's braziers. An origin story through conflict — Elodin's sleeping mind was first woken by frustration with this man. Their relationship later appears professional and respectful.</p>
+    </div>
+
+    <div>
+      <h3>Alder Whin</h3>
+      <p>Another broken namer, confined to Haven. Elodin visits him regularly, with obvious protective tenderness. He takes Kvothe to meet Whin, explicitly to show him what the price of Naming can be. The relationship between them is one of survivor's solidarity — two men who pushed too far into the knowledge of Names and paid for it, differently.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THEORIES -->
+<section id="theories">
+  <div class="section-header">
+    <div class="section-icon">🜁</div>
+    <h2>Fan Theories — Ranked by Evidence</h2>
+  </div>
+
+  <div class="theory-grid">
+
+    <div class="theory-card">
+      <div class="theory-tier tier-strong">Strong Evidence</div>
+      <div class="theory-title">Elodin Has Visited the Fae Realm</div>
+      <div class="theory-body">Elodin recognizes Kvothe's Shaed on sight — a Fae-woven shadow cloak that would be entirely unknown to anyone without direct Fae contact or extraordinarily deep esoteric knowledge. His knowledge of where the moon goes (between worlds) further supports this. Felurian — who does not know the name "Taborlin the Great" — might simply know him differently.</div>
+      <div class="theory-evidence">
+        <div class="evidence-label">Key Evidence</div>
+        <ul class="evidence-list">
+          <li>"I recognize a Shaed when I see one" — WMF</li>
+          <li>Moon question in admissions: he already knows the answer</li>
+          <li>Felurian has no knowledge of "Taborlin" as a name</li>
+          <li>Tells Kvothe the "edges" are best for naming study</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="theory-card">
+      <div class="theory-tier tier-strong">Strong Evidence</div>
+      <div class="theory-title">Elodin Knows His Own True Name</div>
+      <div class="theory-body">TV Tropes and several reader-analysts note that Elodin becomes distinctly distressed when he believes Kvothe or Denna are trying to learn their own True Names. If he knows his own Name, he knows himself completely — including every flaw — with no ability to rationalize or ignore it. This is psychologically destabilizing. It may explain his "madness" — not true insanity but the burden of total self-knowledge.</div>
+      <div class="theory-evidence">
+        <div class="evidence-label">Key Evidence</div>
+        <ul class="evidence-list">
+          <li>Horror at the idea of Name-changing (Stonebridge scene)</li>
+          <li>Visibly distressed when Denna appears to be changing her Name</li>
+          <li>His "madness" may be the psychological cost of full self-knowledge</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="theory-card">
+      <div class="theory-tier tier-strong">Strong Evidence</div>
+      <div class="theory-title">Elodin Is a Parallel to Kvothe — Broken Ace</div>
+      <div class="theory-body">The symmetry is deliberate: Elodin was the youngest, most brilliant student ever admitted; youngest arcanist; youngest Chancellor. He pushed too far, broke, was institutionalized, escaped, and now works at the margins of his former greatness. This is precisely the arc Kvothe is living in reverse in the frame story. Elodin is Kvothe's mirror — his possible future. Note the name patterns: TaborLIN / eLOdIN. KvOthE / KOtE.</div>
+      <div class="theory-evidence">
+        <div class="evidence-label">Key Evidence</div>
+        <ul class="evidence-list">
+          <li>Record-breaking academic career mirroring Kvothe's</li>
+          <li>Broken by too much knowing (Haven) → Kvothe broken by loss</li>
+          <li>Name phoneme pattern: tabORLIN / eLODIN; KvOthE / KOtE</li>
+          <li>Both end up diminished versions of their legendary selves</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="theory-card">
+      <div class="theory-tier tier-speculative">Speculative — Plausible</div>
+      <div class="theory-title">Elodin Is (or Was) Taborlin the Great</div>
+      <div class="theory-body">The most famous fan theory. Taborlin escapes an inescapable prison by calling the Name of stone. Elodin escapes Haven by calling the Name of stone (Cyaerbasalien). Both know the Name of wind. Felurian, who would know Taborlin if she'd met him, has never heard the name "Taborlin the Great" — because she knew him by another name. Elodin visited the Fae. The Taborlin stories are of uncertain antiquity and may have grown from a real person whose deeds were mythologized exactly as Kvothe's are in the present timeline. The Fae realm allows time to pass differently — Elodin could be far older than he appears.</div>
+      <div class="theory-evidence">
+        <div class="evidence-label">Key Evidence</div>
+        <ul class="evidence-list">
+          <li>Prison-escape scene nearly identical to Taborlin legend</li>
+          <li>Both know Names of wind and stone</li>
+          <li>Felurian doesn't recognize the name "Taborlin"</li>
+          <li>Name phoneme similarity (see above)</li>
+          <li>Auri gives Kvothe exactly Taborlin's items: key, coin, candle</li>
+          <li>Elodin knows Auri — Auri is the source of Taborlin's tools?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="theory-card">
+      <div class="theory-tier tier-speculative">Speculative — Plausible</div>
+      <div class="theory-title">Elodin Speaks Ademic and Has Trained in Ademre</div>
+      <div class="theory-body">When Kvothe mentions his time with the Adem, Elodin responds with the precise Ademic hand gesture for "amazed respect." This is not a common gesture in the Four Corners — the Adem keep themselves culturally isolated in Haert. Knowing this gesture implies either extensive study of Ademic cultural material, actual time spent in Ademre, or contact with Adem individuals over long periods. The Adem's Lethani philosophy and the Ketan (their fighting tradition) may have intersected with Naming theory in Elodin's studies.</div>
+      <div class="theory-evidence">
+        <div class="evidence-label">Key Evidence</div>
+        <ul class="evidence-list">
+          <li>Uses precise Ademic cultural gesture unprompted</li>
+          <li>Kilvin confirms Elodin studies ancient languages habitually</li>
+          <li>Elodin consistently recommends going to the "edges" of civilization</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="theory-card">
+      <div class="theory-tier tier-speculative">Speculative — Plausible</div>
+      <div class="theory-title">Elodin Knows What Is Behind the Four-Plate Door</div>
+      <div class="theory-body">Elodin's reaction when Kvothe asks about the Valaritas door is telling — he laughs, says it "almost killed him," and admits he can still remember standing there wondering. He does not deny knowledge; he jokes that he can now "admit it exists." As a former Chancellor with mastery of naming, Elodin is one of the very few people who could plausibly know what lies behind the copper-sealed door. His casual dismissiveness about it may be a deliberately cultivated facade.</div>
+      <div class="theory-evidence">
+        <div class="evidence-label">Key Evidence</div>
+        <ul class="evidence-list">
+          <li>"It almost killed me" — implying he found out</li>
+          <li>Former Chancellor with access beyond any student</li>
+          <li>Responds to Kvothe's question with laugh, not genuine denial</li>
+          <li>Name "Valaritas" — possibly related to Vallare (surround with stone)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="theory-card">
+      <div class="theory-tier tier-speculative">Speculative</div>
+      <div class="theory-title">Elodin's Madness Was Caused by Encountering Felurian (or the Fae)</div>
+      <div class="theory-body">Some readers speculate that "the incident" that sent Elodin to Haven was a visit to Felurian in the Fae. Men who visit Felurian either die or go mad. Elodin survived — but came back broken enough to be institutionalized. His recovery and subsequent escape from Haven (a facility designed for broken arcanists) would then mirror Kvothe's own experience with Felurian: surviving what should have killed him. Kvothe even notes that Felurian reminded him of Elodin — speaking in a similar way, with the same sense of deep, lateral thinking.</div>
+      <div class="theory-evidence">
+        <div class="evidence-label">Key Evidence</div>
+        <ul class="evidence-list">
+          <li>Kvothe explicitly compares Felurian to Elodin (WMF)</li>
+          <li>Elodin's Fae knowledge is too intimate for mere study</li>
+          <li>"The incident" left him institutionalized — consistent with Fae damage</li>
+          <li>Haven's copper construction may relate to Fae vulnerability</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="theory-card">
+      <div class="theory-tier tier-speculative">Speculative</div>
+      <div class="theory-title">Elodin Deliberately Performs Madness</div>
+      <div class="theory-body">A subtler reading: Elodin is not actually mad, but has adopted a performance of eccentricity as both a coping mechanism and a social shield. The barefoot wandering, the unpredictable teaching, the absurdist humor — these may be carefully maintained behaviors that allow him to operate at the margins of University authority while protecting himself from the expectations and pressures that come with being "the most powerful namer alive." His rare moments of genuine intensity (the Auri dinner, the Stonebridge conversation, stilling Kvothe's storm) suggest a sharp, controlled mind beneath the performance.</div>
+      <div class="theory-evidence">
+        <div class="evidence-label">Key Evidence</div>
+        <ul class="evidence-list">
+          <li>All serious conversations with Elodin show extraordinary clarity</li>
+          <li>He navigates trials with precise legal and political sophistication</li>
+          <li>The Haven escape required precise, controlled naming under pressure</li>
+          <li>He chooses when to be "present" — it is selective, not random</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="theory-card">
+      <div class="theory-tier tier-fringe">Fringe / Fun</div>
+      <div class="theory-title">Elodin Is Part-Fae</div>
+      <div class="theory-body">The more fringe theory: Elodin is partially of Fae descent — like Kvothe may be (Kvothe's red hair, his mother's comment about it, his extraordinary gifts). This would explain his seemingly ageless quality (younger than the masters by a dozen years despite equivalent or greater experience), his Fae knowledge, and his deep intuitive grasp of naming. The Fae are known as "Shapers" while humans are "Namers" — Elodin may bridge both.</div>
+      <div class="theory-evidence">
+        <div class="evidence-label">Key Evidence</div>
+        <ul class="evidence-list">
+          <li>Anomalously young compared to his record of achievement</li>
+          <li>Some accounts note his eyes seem to change/shift (disputed)</li>
+          <li>Kvothe compares Felurian to Elodin — similar mode of thought</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONJECTURE -->
+<section id="conjecture">
+  <div class="section-header">
+    <div class="section-icon">🔮</div>
+    <h2>Conjectured History, Present State & Future Role</h2>
+  </div>
+
+  <div class="warning-box">
+    <strong>Editorial Note:</strong> Everything below is informed conjecture, extrapolation, and educated speculation — not canon. Calibrate accordingly for game use.
+  </div>
+
+  <h3>Conjectured Pre-University Life</h3>
+  <p>Elodin was almost certainly born to ordinary circumstances — his extraordinary abilities appear to be innate rather than hereditary (no mention of notable family). His admission at age 14 suggests he was likely traveling alone or brought to the University by someone who recognized his gifts. The most plausible scenario: he was already exhibiting spontaneous naming behaviors as a child — brief, instinctive moments of commanding the wind, fire, or stone — and was noticed by a traveling arcanist or Giller who brought him to the University.</p>
+
+  <p>His progress from admission to Full Arcanist in four years (ages 14–18) implies not just intelligence but a sleeping mind that was already partially awake — rare and dangerous. Most students take six to eight years to reach arcanist. He apparently called the Name of Wind for the first time at Elxa Dal's class in rage, suggesting his sleeping mind was fully capable but waiting for an emotional trigger — which came much earlier than most students.</p>
+
+  <h3>Conjectured "The Incident" and Haven</h3>
+  <p>What broke Elodin is the series' most tantalizing unanswered question. The candidates, ranked by plausibility:</p>
+
+  <p><strong>Most likely:</strong> Elodin learned too many Names too quickly, and his sleeping mind overpowered his waking mind — a psychological collapse from the inside. The Haven room was designed to suppress naming specifically because Elodin's mind was involuntarily speaking Names even when he didn't intend to. Two years of sensory deprivation from the name of the wind — a thing he was deeply connected to — would be its own special torture.</p>
+
+  <p><strong>Second most likely:</strong> He encountered something in the Fae realm — Felurian, or something worse — that damaged him. The copper construction of his cell suggests copper's namelessness was used deliberately to confine a namer, which would be overkill for simple madness but reasonable for someone whose naming had become uncontrolled.</p>
+
+  <p><strong>Darkest speculation:</strong> He found what's behind the Four-Plate Door. And knowing it broke him.</p>
+
+  <h3>Conjectured Current State</h3>
+  <p>Elodin in the present story appears genuinely recovered — partially. He has reintegrated his waking and sleeping minds sufficiently to function, teach (loosely), and perform naming when he chooses. But the experience has permanently altered him. He chooses not to exert full control over his environment. The barefoot walking is grounding — literal connection to the earth, possibly a way of staying present in the waking mind. His refusal to keep consistent schedules, wear shoes, or follow social conventions may be deliberate resistance against the kind of rigid structure that preceded his breakdown.</p>
+
+  <p>His protectiveness of Auri reads as survivor's recognition: he sees in her the same thing that happened to him, and he has failed to help her in the ways that matter. Kvothe's ability to reach Auri where Elodin could not may actually represent something Elodin has mourned for years.</p>
+
+  <h3>Conjectured Role in Doors of Stone</h3>
+  <p>Elodin's illness at the end of WMF and the rise of Hemme suggests the University's political landscape is deteriorating. In a world moving toward conflict (the war that presumably corresponds to Kvothe's present-day collapse), Elodin represents one of the world's most powerful living forces — a true Master Namer with knowledge of the Fae, Names of fire, stone, and wind, and access to whatever the Four-Plate Door conceals.</p>
+
+  <p>The most compelling speculation: In Book 3, Elodin will finally have to <em>act</em> — not teach, not perform eccentricity, but use his full power. The question is whether he will. Elodin has spent years carefully not being the most powerful person in the room. Something — or someone — will force his hand.</p>
+
+  <p>If the Taborlin theory is correct, Elodin may be the key to understanding what the Chandrian truly are and what happened at Myr Tariniel. He would have knowledge spanning generations, shaped by time in the Fae where years pass differently. And he may have been waiting, very patiently, for Kvothe specifically.</p>
+
+  <h3>What Elodin May Know That He Isn't Saying</h3>
+  <div class="info-panel">
+    <div class="info-row">
+      <span class="info-key">The Chandrian</span>
+      <span class="info-val">Almost certainly knows more than he reveals. The Cthaeh told Kvothe he was "too proud to ask his masters" about the Chandrian. Elodin is the master most likely to have real answers.</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">The Four-Plate Door</span>
+      <span class="info-val important">Very likely knows what is behind it. His "it almost killed me" suggests personal discovery, not hearsay.</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Auri's True Name</span>
+      <span class="info-val">Knows it, or very nearly does. His inability to approach her while holding that knowledge is the paradox at the heart of his relationship with her.</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Naming vs. Shaping</span>
+      <span class="info-val">Rothfuss says readers will "really enjoy" the answer in Book 3. Elodin is the character most likely to explain or embody the distinction — possibly revealing that he is himself a Shaper, or that the line is thinner than anyone knew.</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">The Old University</span>
+      <span class="info-val">Elodin speaks about the University's founding with an intimacy that exceeds scholarly knowledge — as if describing memories. He knows the Quoyan Hayel's true name when no one else does. He knows what names things were called "when folk spoke differently."</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Kvothe's Destiny</span>
+      <span class="info-val">His consistent protection and promotion of Kvothe, despite stated reservations, may be intentional cultivation. He may know what Kvothe is — or will become.</span>
+    </div>
+  </div>
+</section>
+
+<!-- DEEP RESEARCH PROMPT -->
+<section id="research-prompt">
+  <div class="section-header">
+    <div class="section-icon">✦</div>
+    <h2>Deep Research Prompt</h2>
+  </div>
+
+  <p>Use this prompt with any capable AI or research tool to continue extending the Elodin lore far beyond what is here. It is designed to elicit maximum depth of analysis, conjecture, and creative extrapolation:</p>
+
+  <div class="prompt-box">
+    <div class="prompt-text" id="research-prompt-text">You are a deep-lore analyst for the Kingkiller Chronicle by Patrick Rothfuss, with access to the full canon of both novels, The Slow Regard of Silent Things, all confirmed Rothfuss interviews and Q&As, fan wikis, the /r/KingkillerChronicle subreddit's most upvoted theories, and scholarly Rothfuss analysis from Tor.com and similar sources.
+
+Your subject is <strong>Master Elodin</strong> — Master Namer, former Chancellor, Haven escapee, and the most powerful active namer in the Four Corners.
+
+Complete the following tasks in exhaustive detail:
+
+<strong>SECTION 1: Complete Canon Audit</strong>
+List every scene in which Elodin appears, every line of dialogue attributed to him, every action he takes, every observation Kvothe makes about him, and every time another character speaks about him. Include chapter numbers and context. Do not paraphrase — quote or closely describe each moment.
+
+<strong>SECTION 2: Linguistic Deep Dive</strong>
+Analyze the word "Elodin" — its possible etymological roots across real languages (Old English, Old Norse, Latin, Sindarin-esque patterns), what it may mean semantically, and how this might reflect Rothfuss's intent. Compare to the names Taborlin, Kvothe, and Kote for phonemic relationships. Analyze the Names spoken by or attributed to Elodin: Aerlevsedi, Cyaerbasalien — break down their possible component meanings.
+
+<strong>SECTION 3: The Incident — Maximum Reconstruction</strong>
+Drawing on all canon clues, construct the most complete and internally consistent account of what happened to Elodin before he was committed to Haven. What might have triggered his breakdown? What could have been sufficiently traumatic or cognitively overwhelming for the most gifted namer alive? Explore: the Four-Plate Door hypothesis, the Felurian hypothesis, the Chandrian encounter hypothesis, the self-naming hypothesis. Rate each by textual plausibility.
+
+<strong>SECTION 4: Taborlin the Great — Full Theory Analysis</strong>
+Assemble every piece of evidence for and against the theory that Elodin is (or was) Taborlin the Great. Include: the prison-escape parallels, the name phoneme matches (TaborLIN / eLOdIN), Felurian's ignorance of "Taborlin" as a name, Auri's role as keeper of Taborlin's tools (key, coin, candle — all given to Kvothe), the timeline problems and how Fae-time could resolve them, and Rothfuss's own (rare) comments on the subject. Conclude with a probability estimate and the strongest single piece of evidence in each direction.
+
+<strong>SECTION 5: Naming vs. Shaping — Elodin's Place on the Spectrum</strong>
+Rothfuss has confirmed in interviews that the distinction between Naming and Shaping will be important in Book 3 and is a "very, very good question." Construct a full theoretical framework for this distinction using all available canon. Where does Elodin sit? Is he a Namer who approaches Shaping? Could his breakdown be related to crossing that line? How does Auri's demonstrated Shaping (creating the candle in Slow Regard) connect to Elodin's world?
+
+<strong>SECTION 6: Elodin and the Sleeping Mind — Psychological Framework</strong>
+Elodin's theory of the waking and sleeping mind is the most complete explanation of naming in the series. Using this framework, construct a psychological profile of Elodin: what does his behavior suggest about the balance between his two minds? Is his apparent eccentricity a symptom of imbalance, a performance, or a chosen discipline? How does his breakdown and recovery map to what he teaches students? Compare to Jungian depth psychology and the concept of ego dissolution.
+
+<strong>SECTION 7: What Elodin Knows That He Hasn't Said</strong>
+Identify every moment where Elodin appears to know more than he reveals, and construct a comprehensive list of secret knowledge he likely holds. This should include: the Chandrian's true nature, what the Four-Plate Door conceals, Kvothe's destiny, Auri's history, the Amyr's continued existence, the moon's imprisonment, and the nature of Iax's bargain. For each, explain what evidence suggests he knows and why he might be concealing it.
+
+<strong>SECTION 8: Doors of Stone — Conjectured Role</strong>
+Based on all available evidence, construct Elodin's most likely role in the concluding novel. What will force him to act? How will his illness at the end of WMF resolve? If Hemme's rise is politically dangerous, what is Elodin's response? Will Elodin and Kvothe work together, come into conflict, or both? What would a fully-realized Elodin — choosing to use his complete power — look like narratively?
+
+<strong>SECTION 9: The Seven Words and Ten Words</strong>
+Elodin mentions "seven words that will make a person love you" and "ten words that will break a strong man's will." Kvothe may already be unconsciously using such words (Denna comments on this, the horse-trader is affected). Construct a full theory of what these "words" are — are they True Names? Are they something between a Name and a word? Can Elodin use them consciously? Has he used them in the text already without Kvothe recognizing it?
+
+<strong>SECTION 10: Game Implementation Notes</strong>
+For a tabletop RPG or narrative game set in Temerant: how should Elodin be statted, portrayed, and used? What are his motivations in-game? What secrets can players discover about him? What would trigger him to reveal true power? Design three possible quest hooks involving Elodin, one for each power level of play (novice, adept, master-tier).</div>
+    <button class="copy-btn" onclick="copyPrompt()">Copy Research Prompt</button>
+  </div>
+</section>
+
+</main>
+
+<a href="#" class="scroll-top" title="Back to top">↑</a>
+
+<footer>
+  ElodinDeepLore · RothfussGame Project · Joshua Parris · Dubbo Christian School
+  <br><br>
+  All Kingkiller Chronicle content © Patrick Rothfuss · This document is fan research and game material · Non-commercial use only
+</footer>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+
+  // Copy prompt
+  function copyPrompt() {
+    const text = document.getElementById('research-prompt-text').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => btn.textContent = 'Copy Research Prompt', 2000);
+    });
+  }
+</script>
+</body>
+</html>

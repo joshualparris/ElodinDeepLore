@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elodin Deep Lore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@700&family=Crimson+Pro:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="sky-layer" aria-hidden="true"></div>
+    <div class="wind-layer" aria-hidden="true"></div>
+    <div class="page-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <p class="eyebrow">Rothfuss Game Lab</p>
+          <p class="runic-tag">Master Namer Dossier</p>
+          <h1>Elodin Deep Lore</h1>
+          <p class="lede">
+            A research atlas for everything we can currently establish, infer, or theorize about
+            Master Elodin.
+          </p>
+          <div class="brand-divider" aria-hidden="true">
+            <span>✦</span>
+          </div>
+        </div>
+
+        <nav class="panel section-nav">
+          <h2>Atlas Sections</h2>
+          <div class="nav-links">
+            <a href="#hero">Overview</a>
+            <a href="#entries">Lore Entries</a>
+            <a href="#gaps">Known Gaps</a>
+          </div>
+        </nav>
+
+        <section class="panel">
+          <h2>Scope</h2>
+          <ul class="compact-list">
+            <li>Confirmed canon from <em>The Name of the Wind</em></li>
+            <li>Established material from <em>The Wise Man's Fear</em></li>
+            <li>Author and adaptation-side meta references</li>
+            <li>Major fan theories, clearly separated from fact</li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <h2>Filters</h2>
+          <div class="search-stack">
+            <label for="searchBox">Search everything</label>
+            <input id="searchBox" type="search" placeholder="fae, Haven, naming, Auri..." />
+          </div>
+          <div class="chip-row" id="categoryChips"></div>
+          <div class="chip-row" id="evidenceChips"></div>
+        </section>
+
+        <section class="panel stats-panel">
+          <h2>Current Picture</h2>
+          <div class="stat-grid" id="statGrid"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Research Files</h2>
+          <div class="research-links">
+            <a href="./research/wmf-elodin-extraction.md">Wise Man's Fear extraction notes</a>
+            <a href="./research/interview-archive.md">Interview archive</a>
+            <a href="./README.md">Project README</a>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Design Use</h2>
+          <p>
+            This project is meant to feed future Rothfuss-game design. It keeps dangerous ground
+            visible: what is textually true, what is author-commentary, and what is still
+            speculative.
+          </p>
+        </section>
+      </aside>
+
+      <main class="main-content">
+        <section class="hero-card" id="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Character Focus</p>
+            <h2>Master Namer. Former Chancellor. Haven escapee. Controlled chaos.</h2>
+            <p>
+              Elodin is one of the most destabilizing figures in the Chronicle because he feels
+              unserious on the surface and deeply dangerous underneath. The goal here is to build
+              the fullest possible picture without flattening the mystery that makes him work.
+            </p>
+            <div class="hero-quote">
+              <p>
+                Build the fullest picture possible, but never explain him so neatly that he stops
+                feeling dangerous.
+              </p>
+            </div>
+          </div>
+          <div class="hero-note">
+            <p class="mini-label">Research rule</p>
+            <p>Canon first. Meta second. Theory third. Never blur the boundaries.</p>
+            <div class="hero-sigil" aria-hidden="true">◈</div>
+          </div>
+        </section>
+
+        <section class="summary-grid" id="summaryGrid"></section>
+
+        <section class="section-block" id="entries">
+          <div class="section-heading">
+            <p class="eyebrow">Lore Entries</p>
+            <h2>Source-Mapped Knowledge Base</h2>
+          </div>
+          <div class="entry-list" id="entryList"></div>
+        </section>
+
+        <section class="section-block" id="gaps">
+          <div class="section-heading">
+            <p class="eyebrow">Research Notes</p>
+            <h2>Known Gaps</h2>
+          </div>
+          <div class="notes-grid" id="gapList"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

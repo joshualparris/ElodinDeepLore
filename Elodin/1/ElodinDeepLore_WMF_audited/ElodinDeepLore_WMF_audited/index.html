@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ElodinDeepLore</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="landing-main">
+      <section class="landing-hero brand-block">
+        <p class="eyebrow">Rothfuss Game Lab</p>
+        <h1>ElodinDeepLore</h1>
+        <p class="lede">A repaired and now WMF-audited local package with a searchable lore atlas, a finished longform dossier, and direct-canon audit files.</p>
+      </section>
+
+      <section class="landing-grid">
+        <article class="landing-card">
+          <p class="eyebrow">Interactive build</p>
+          <h2>Atlas App</h2>
+          <p>Search, filter, and browse the structured Elodin entries by category and evidence level.</p>
+          <ul class="kv-list">
+            <li>Canon / secondary / meta / theory separation</li>
+            <li>Direct Wise Man's Fear pass folded into the data</li>
+            <li>Bundled PDFs for local reference</li>
+          </ul>
+          <div class="landing-actions">
+            <a class="btn-link" href="./atlas.html">Open Atlas</a>
+            <a class="btn-link" href="./The%20Name%20of%20Wind.pdf">NOTW PDF</a>
+            <a class="btn-link" href="./The%20Wise%20Mans%20Fear%20-%20Book.pdf">WMF PDF</a>
+          </div>
+        </article>
+
+        <article class="landing-card">
+          <p class="eyebrow">Standalone build</p>
+          <h2>Longform Dossier</h2>
+          <p>The large styled HTML encyclopedia Claude tried to create, now reconstructed and kept alongside the tighter WMF audit.</p>
+          <ul class="kv-list">
+            <li>Timeline, canon, theories, conjecture</li>
+            <li>Deep research prompt included</li>
+            <li>Good candidate for later source clean-up</li>
+          </ul>
+          <div class="landing-actions">
+            <a class="btn-link" href="./ElodinDeepLore.html">Open Dossier</a>
+          </div>
+        </article>
+
+        <article class="landing-card">
+          <p class="eyebrow">Audit layer</p>
+          <h2>WMF Extraction</h2>
+          <p>A direct-canon extraction pass from your uploaded Wise Man's Fear PDF, plus a machine-friendly quote audit.</p>
+          <ul class="kv-list">
+            <li>Chapter-scene notes</li>
+            <li>PDF page references</li>
+            <li>JSON ready for future app ingestion</li>
+          </ul>
+          <div class="landing-actions">
+            <a class="btn-link" href="./WMF_Elodin_Extraction_Audit.md">Open Audit Notes</a>
+            <a class="btn-link" href="./WMF_Elodin_Quote_Audit.json">Open Audit JSON</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" style="margin-top: 24px;">
+        <h2>What changed in this pass</h2>
+        <ul class="compact-list">
+          <li>The local package now includes your uploaded <em>Wise Man's Fear</em> PDF.</li>
+          <li>The atlas has been expanded with direct WMF canon entries instead of relying on broad secondary placeholders.</li>
+          <li>A separate extraction audit and structured quote audit were added for future cleanup and app work.</li>
+          <li>The next strongest improvement would be applying the same quote-level tightening to <em>The Name of the Wind</em> and then pruning the longform dossier accordingly.</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

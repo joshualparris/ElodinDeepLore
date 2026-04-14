@@ -1,0 +1,128 @@
+[
+  {
+    "id": "wmf-fela-invite",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "early term / admissions lead-in",
+    "pdf_pages": "46",
+    "short_excerpt": "Elodin’s asked me to join his class",
+    "claim": "Elodin is launching a formal class and personally invited Fela.",
+    "atlas_entry": "wmf-fela-invite"
+  },
+  {
+    "id": "wmf-moon-question",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "admissions",
+    "pdf_pages": "127",
+    "short_excerpt": "Where does the moon go",
+    "claim": "Elodin asks a deep cosmological question as a namer question.",
+    "atlas_entry": "wmf-moon-question"
+  },
+  {
+    "id": "wmf-auri-name",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Auri rooftop scene",
+    "pdf_pages": "157-158",
+    "short_excerpt": "Why Auri? / Sunny is leviriet in Siaru",
+    "claim": "Elodin reacts strongly to Kvothe's naming of Auri.",
+    "atlas_entry": "wmf-auri-name"
+  },
+  {
+    "id": "wmf-archives-return",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Masters' Hall rooftop intervention",
+    "pdf_pages": "158-160",
+    "short_excerpt": "You’re my Re’lar now",
+    "claim": "Elodin gets Kvothe back into the Archives.",
+    "atlas_entry": "wmf-archives-return"
+  },
+  {
+    "id": "wmf-sleeping-mind",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Naming class opening",
+    "pdf_pages": "165-168",
+    "short_excerpt": "Your sleeping mind is wide and wild enough",
+    "claim": "Elodin directly teaches that the sleeping mind can hold names.",
+    "atlas_entry": "wmf-sleeping-mind"
+  },
+  {
+    "id": "wmf-reading-list",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Naming class reading list",
+    "pdf_pages": "169",
+    "short_excerpt": "I haven’t read them",
+    "claim": "Elodin assigns books he treats as secondary to direct insight.",
+    "atlas_entry": "wmf-reading-list"
+  },
+  {
+    "id": "wmf-interesting-fact",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Interesting Fact class",
+    "pdf_pages": "186, 188-190",
+    "short_excerpt": "Small facts lead to great knowing",
+    "claim": "The milkweed scene is deliberate pedagogy, not random comedy.",
+    "atlas_entry": "wmf-interesting-fact"
+  },
+  {
+    "id": "wmf-more-than-salt",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "More Than Salt lecture",
+    "pdf_pages": "323, 325-326",
+    "short_excerpt": "The majority of important things cannot be said outright",
+    "claim": "Elodin explicitly teaches indirect meaning and tacit understanding.",
+    "atlas_entry": "wmf-more-than-salt"
+  },
+  {
+    "id": "wmf-fela-ring",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Stone naming demonstration",
+    "pdf_pages": "444-447",
+    "short_excerpt": "She has found the name of stone",
+    "claim": "Fela succeeds under Elodin and receives a stone ring.",
+    "atlas_entry": "wmf-fela-ring"
+  },
+  {
+    "id": "wmf-chasing-the-wind",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Stonebridge departure scene",
+    "pdf_pages": "502-505",
+    "short_excerpt": "They said he was chasing the wind",
+    "claim": "Elodin explains the old namer meaning of the phrase.",
+    "atlas_entry": "wmf-chasing-the-wind"
+  },
+  {
+    "id": "wmf-bloodless",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Return to Stocks",
+    "pdf_pages": "1297-1298",
+    "short_excerpt": "Kilvin brought in Master Elodin",
+    "claim": "Elodin supplied the name Bloodless.",
+    "atlas_entry": "wmf-bloodless"
+  },
+  {
+    "id": "wmf-shaed",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Sword and Shaed",
+    "pdf_pages": "1305-1306",
+    "short_excerpt": "How did you come to be enshaedn?",
+    "claim": "Elodin recognizes the shaed immediately and identifies it as faerie-made.",
+    "atlas_entry": "wmf-shaed"
+  },
+  {
+    "id": "wmf-name-change-panic",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "garden conversation about Denna",
+    "pdf_pages": "1353-1354",
+    "short_excerpt": "What have you done?",
+    "claim": "Elodin is genuinely alarmed by the idea of someone changing their own name.",
+    "atlas_entry": "wmf-name-change-panic"
+  },
+  {
+    "id": "wmf-hemme-chancellor",
+    "status": "direct_canon_confirmed",
+    "chapter_context": "Herma illness / succession",
+    "pdf_pages": "1357",
+    "short_excerpt": "Hemme was appointed Chancellor",
+    "claim": "Elodin is passed over as too erratic when a new Chancellor is needed.",
+    "atlas_entry": "wmf-hemme-chancellor"
+  }
+]
