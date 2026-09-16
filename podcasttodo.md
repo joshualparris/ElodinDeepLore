@@ -1,17 +1,28 @@
 # Podcast Integration TODO
 
-**Decision:** Add — strong fit.
-**Topic bank:** Kingkiller Chronicle lore, fantasy literary analysis, worldbuilding, character/theory discussion, storytelling craft.
+**Decision:** Add — strong fit.  
+**Status:** ✅ Independent player added 16 September 2026.
+**Topic bank:** fantasy literature, worldbuilding, character discussion, storytelling craft and adjacent book discussion.
 
-## TODO
-- [ ] Curate about 25 legitimate Spotify discussion/analysis episodes; no pirated audiobook material.
-- [ ] Add a collapsed bottom dock: **📚 Listen to a different Kingkiller lore podcast**.
-- [ ] One tap selects/loads another episode; persist recent choices and avoid immediate repeats.
-- [ ] Use Spotify embed/deep links without assuming autoplay.
-- [ ] Tag episodes by lore, theories, characters, worldbuilding and writing craft.
-- [ ] Hide/pause during any built-in narration/TTS or competing audio.
-- [ ] Keep lore/search/content interactions primary.
-- [ ] Add mobile/a11y and selection/persistence/audio-conflict tests.
+## Completed
+- [x] Curated 25 legitimate Spotify discussion/analysis episodes; no audiobook or pirated sources.
+- [x] Added a collapsed **🎧 Podcasts** launcher using the browser's native `<dialog>` element.
+- [x] Episode data is embedded directly in `index.html` as local JSON rather than loaded from JoshHub or another app.
+- [x] One tap opens the player; **✦ Different podcast** avoids the current/recent choices and persists state in `localStorage`.
+- [x] Spotify uses direct embed/deep links and does not assume autoplay.
+- [x] Episodes carry local tags for literature, characters, worldbuilding, story craft and fantasy design.
+- [x] The dialog closes and unloads Spotify if another HTML audio/video element begins playing.
+- [x] Mobile safe-area handling, keyboard focus states and native Escape-to-close behaviour are included.
 
-## Shared direction
-Use the reusable **Josh Podcast Dock** and share catalogue conventions with KKC Adventure/RothfussMaps.
+## Independence / resilience
+This implementation deliberately does **not** use the shared Josh Podcast Dock, JoshHub, jsDelivr, a remote JSON bank or another project's runtime. The player is split between:
+
+- `index.html` — local episode JSON + native dialog markup
+- `podcast-dialog.js` — selection, persistence and Spotify wiring
+- `podcast-dialog.css` — app-local presentation
+
+That gives Elodin Deep Lore its own failure domain instead of sharing the podcast architecture used by the other apps.
+
+## Future enhancement
+- [ ] Replace/add episodes with genuinely Kingkiller-specific discussion when strong legitimate Spotify episodes can be verified.
+- [ ] Add a tiny browser regression for open / different / close behaviour if this repo gains automated browser tests.
