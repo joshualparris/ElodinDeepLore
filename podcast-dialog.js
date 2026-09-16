@@ -70,18 +70,24 @@
     persist();
   };
 
-  const renderEpisode = () => {
+  const renderEpisode = ({ forceReload = false } = {}) => {
     if (currentIndex < 0 || currentIndex >= episodes.length) chooseDifferent();
     const episode = episodes[currentIndex];
     title.textContent = episode.title;
     meta.textContent = [episode.show, ...(Array.isArray(episode.tags) ? episode.tags : [])].filter(Boolean).join(' · ');
-    frame.src = `https://open.spotify.com/embed/episode/${encodeURIComponent(episode.id)}?theme=0`;
+
+    // Keep the same Spotify iframe alive when the UI is closed/reopened so playback continues.
+    if (forceReload || frame.dataset.episodeId !== episode.id || !frame.getAttribute('src')) {
+      frame.src = `https://open.spotify.com/embed/episode/${encodeURIComponent(episode.id)}?theme=0`;
+      frame.dataset.episodeId = episode.id;
+    }
+
     frame.title = `Spotify episode: ${episode.title}`;
     spotifyLink.href = `https://open.spotify.com/episode/${encodeURIComponent(episode.id)}`;
   };
 
   const finishClose = () => {
-    frame.removeAttribute('src');
+    // Deliberately leave the iframe loaded. Removing its src stops Spotify playback.
     launcher.setAttribute('aria-expanded', 'false');
   };
 
@@ -102,7 +108,7 @@
   closeButton.addEventListener('click', closePlayer);
   differentButton.addEventListener('click', () => {
     chooseDifferent();
-    renderEpisode();
+    renderEpisode({ forceReload: true });
   });
 
   dialog.addEventListener('close', finishClose);
