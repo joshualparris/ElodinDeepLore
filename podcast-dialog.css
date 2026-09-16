@@ -16,6 +16,8 @@
   white-space: nowrap;
 }
 
+#elodin-podcast-launcher[hidden] { display: none !important; }
+
 #elodin-podcast-launcher:focus-visible,
 #elodin-podcast-dialog button:focus-visible,
 #elodin-podcast-dialog a:focus-visible {
@@ -24,9 +26,15 @@
 }
 
 #elodin-podcast-dialog {
+  position: fixed;
+  left: 50%;
+  right: auto;
+  top: auto;
+  bottom: max(10px, env(safe-area-inset-bottom));
   width: min(640px, calc(100vw - 20px));
   max-width: none;
-  margin: auto auto max(10px, env(safe-area-inset-bottom));
+  margin: 0;
+  transform: translateX(-50%);
   border: 1px solid rgba(215, 176, 106, 0.42);
   border-radius: 22px;
   padding: 0;
@@ -34,11 +42,20 @@
   background: #0d151f;
   color: #efe8db;
   box-shadow: 0 26px 80px rgba(0, 0, 0, 0.66);
+  z-index: 2147483001;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+/* The dialog intentionally remains open when "closed" so Chromium keeps the
+   Spotify iframe alive. It is moved below the viewport instead of display:none. */
+#elodin-podcast-dialog.is-minimized {
+  transform: translate(-50%, calc(100% + 90px));
+  opacity: 0.001;
+  pointer-events: none;
 }
 
 #elodin-podcast-dialog::backdrop {
-  background: rgba(2, 6, 12, 0.68);
-  backdrop-filter: blur(4px);
+  background: transparent;
 }
 
 .elodin-podcast-card {
@@ -143,7 +160,7 @@
 @media (max-width: 640px) {
   #elodin-podcast-dialog {
     width: calc(100vw - 10px);
-    margin-bottom: max(5px, env(safe-area-inset-bottom));
+    bottom: max(5px, env(safe-area-inset-bottom));
   }
 
   .elodin-podcast-card { padding: 12px; }
@@ -155,5 +172,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #elodin-podcast-dialog::backdrop { backdrop-filter: none; }
+  #elodin-podcast-dialog { transition: none; }
 }
