@@ -76,7 +76,8 @@
     title.textContent = episode.title;
     meta.textContent = [episode.show, ...(Array.isArray(episode.tags) ? episode.tags : [])].filter(Boolean).join(' · ');
 
-    // Keep the same Spotify iframe alive when the UI is closed/reopened so playback continues.
+    // Never replace the iframe for the current episode just because the controls are reopened.
+    // Keeping the same iframe document alive is what preserves Spotify playback and position.
     if (forceReload || frame.dataset.episodeId !== episode.id || !frame.getAttribute('src')) {
       frame.src = `https://open.spotify.com/embed/episode/${encodeURIComponent(episode.id)}?theme=0`;
       frame.dataset.episodeId = episode.id;
@@ -86,41 +87,45 @@
     spotifyLink.href = `https://open.spotify.com/episode/${encodeURIComponent(episode.id)}`;
   };
 
-  const finishClose = () => {
-    // Deliberately leave the iframe loaded. Removing its src stops Spotify playback.
-    launcher.setAttribute('aria-expanded', 'false');
+  const ensureNonModalDialog = () => {
+    if (!dialog.open) {
+      // show(), not showModal(): the page must stay interactive while the podcast is playing.
+      if (typeof dialog.show === 'function') dialog.show();
+      else dialog.setAttribute('open', '');
+    }
   };
 
   const openPlayer = () => {
     renderEpisode();
+    ensureNonModalDialog();
+    dialog.classList.remove('is-minimized');
+    dialog.setAttribute('aria-hidden', 'false');
+    launcher.hidden = true;
     launcher.setAttribute('aria-expanded', 'true');
-    if (typeof dialog.showModal === 'function') dialog.showModal();
-    else dialog.setAttribute('open', '');
   };
 
-  const closePlayer = () => {
-    if (typeof dialog.close === 'function' && dialog.open) dialog.close();
-    else dialog.removeAttribute('open');
-    finishClose();
+  const minimizePlayer = () => {
+    // Do not close the <dialog> and do not remove/hide/reload the Spotify iframe.
+    // Closing a dialog makes its subtree non-rendered in Chromium, which pauses Spotify.
+    ensureNonModalDialog();
+    dialog.classList.add('is-minimized');
+    dialog.setAttribute('aria-hidden', 'true');
+    launcher.hidden = false;
+    launcher.setAttribute('aria-expanded', 'false');
   };
 
   launcher.addEventListener('click', openPlayer);
-  closeButton.addEventListener('click', closePlayer);
+  closeButton.addEventListener('click', minimizePlayer);
   differentButton.addEventListener('click', () => {
     chooseDifferent();
     renderEpisode({ forceReload: true });
   });
 
-  dialog.addEventListener('close', finishClose);
-  dialog.addEventListener('cancel', () => {
-    setTimeout(finishClose, 0);
+  // Escape behaves like the X: collapse controls but leave playback running.
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && dialog.open && !dialog.classList.contains('is-minimized')) {
+      event.preventDefault();
+      minimizePlayer();
+    }
   });
-  dialog.addEventListener('click', (event) => {
-    if (event.target === dialog) closePlayer();
-  });
-
-  document.addEventListener('play', (event) => {
-    const media = event.target;
-    if (dialog.open && (media instanceof HTMLAudioElement || media instanceof HTMLVideoElement)) closePlayer();
-  }, true);
 })();
